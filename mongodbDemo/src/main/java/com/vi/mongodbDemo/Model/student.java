@@ -1,5 +1,7 @@
 package com.vi.mongodbDemo.Model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -10,8 +12,10 @@ import java.util.List;
 
 @Data
 @Document(collation = "student")
+@ApiModel(description = "student class")
 public class student {
     @Id
+    @ApiModelProperty(notes = "UUid of the student/auto generated")
     private String id;
     private String name;
     private List<course> courses;
