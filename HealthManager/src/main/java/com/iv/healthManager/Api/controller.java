@@ -1,6 +1,8 @@
 package com.iv.healthManager.Api;
 
 import com.iv.healthManager.Model.Driver;
+import com.iv.healthManager.Model.Health;
+import com.iv.healthManager.Notify.Sms;
 import com.iv.healthManager.Service.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +36,22 @@ public class controller {
     public Optional<Driver> getById(@PathVariable  String id){
         return  this.service.getById(id);
     }
+    @GetMapping("/getHealth/{id}")
+    public Health getHealth(@PathVariable String id){
+        return this.service.getHealth(id);
+    }
+    @PutMapping("/Driver/{id}")
+    public void update(@PathVariable String id,@RequestBody Driver driver){
+        this.service.update(driver);
+    }
 
-
-
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id){
+        this.service.delete(id);
+    }
+    @PostMapping("/notify")
+    public void notify(@RequestBody Sms sms){
+        this.service.sendSms(sms);
+    }
 
 }

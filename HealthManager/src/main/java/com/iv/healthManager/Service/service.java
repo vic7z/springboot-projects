@@ -4,6 +4,7 @@ import com.iv.healthManager.Model.Driver;
 import com.iv.healthManager.Model.Health;
 import com.iv.healthManager.Notify.Contact;
 import com.iv.healthManager.Notify.Notification;
+import com.iv.healthManager.Notify.Sms;
 import com.iv.healthManager.Repository.driverRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +18,15 @@ public class service {
     public final driverRepo driverRepo;
     private final Notification notification;
     private final Contact contact;
+    private final Sms message;
 
 
     @Autowired
-    public service(com.iv.healthManager.Repository.driverRepo driverRepo, Notification notification, Contact contact) {
+    public service(com.iv.healthManager.Repository.driverRepo driverRepo, Notification notification, Contact contact, Sms message) {
         this.driverRepo = driverRepo;
         this.notification = notification;
         this.contact = contact;
+        this.message = message;
     }
 
 
@@ -44,14 +47,14 @@ public class service {
    public Optional< Driver> getById(String id){
         return this.driverRepo.findById(id);
    }
-   private void sendSms(String number,String message){
-        this.notification.sendNotification(number,message);
+   public void sendSms(Sms sms){
+        this.notification.sendNotification(sms.getNumber(),sms.getMessage());
    }
-   private void addContact(String contact){
-        this.contact.addContact(contact);
+   private void addContact(Contact contact){
+        this.contact.addContact(contact.getMynum());
    }
-   private void sendMultipleSmS(String message){
-        notification.sendMultiple(message);
+   private void sendMultipleSmS(Sms message){
+        notification.sendMultiple(message.getMessage());
    }
    private ResponseEntity<Driver> updateDriverDetails(String id, Health health){
         Driver driver=driverRepo.findById(id).orElse(new Driver());
@@ -60,5 +63,20 @@ public class service {
         return ResponseEntity.ok(updatedDriver);
    }
 
+   public Health getHealth(String id){
+        Optional<Driver> dr=getById(id);
+        if (dr.isEmpty()){
+            return null;
+        }else {
+            return dr.get().getHealth();
+        }
+   }
 
+
+    public void update(Driver driver) {
+        this.driverRepo.save(driver);
+    }
+    public void delete(String id){
+        this.driverRepo.deleteById(id);
+    }
 }
