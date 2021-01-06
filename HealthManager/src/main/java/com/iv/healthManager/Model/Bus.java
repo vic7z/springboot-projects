@@ -1,16 +1,20 @@
 package com.iv.healthManager.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
+@ApiModel(description = "Bus module")
 public class Bus {
-    private String id;
+    @ApiModelProperty(notes = "id of the bus")
+    private String BusId;
     private int no;
     private Conductor conductor;
     private List<String> routes;

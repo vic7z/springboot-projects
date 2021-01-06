@@ -16,7 +16,7 @@ import java.util.List;
 @Document(collection ="Drivers")
 public class Driver {
     @Id
-    private String id;
+    private String DriverId;
     private String name;
     private Location location;
     //private Contact contact;
@@ -24,7 +24,7 @@ public class Driver {
     private Bus bus;
 
     public Driver(String id, String name) {
-        this.id = id;
+        this.DriverId = id;
         this.name = name;
     }
 

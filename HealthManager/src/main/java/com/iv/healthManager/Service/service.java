@@ -115,9 +115,11 @@ public class service {
             return dr.get().getBus().getConductor();
         }
     }
-    public void setConductorHealth(String id,Health health){
-        Conductor conductor=getConductor(id);
-        conductor.setHealth(health);
+    public void setConductorHealth(String id,Health health) {
+        Conductor conductor = getConductor(id);
+        if (conductor != null) {
+            conductor.setHealth(health);
+        }
     }
 
 }

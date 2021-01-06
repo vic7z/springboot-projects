@@ -72,7 +72,7 @@ public class controller {
     }
     @PostMapping("/notify")
     @ApiOperation(
-            value = "send alert notification to the contats "
+            value = "send alert notification to the contacts "
     )
     public void notify(@RequestBody Sms sms){
         this.service.sendSms(sms);
@@ -86,7 +86,7 @@ public class controller {
     }
     @GetMapping("/Driver/bus/{id}")
     @ApiOperation(
-            value = "get tyhe bus details from the database"
+            value = "get the bus details from the database"
     )
     public Bus getBusDetails(@PathVariable String id){
         Bus bus = this.service.getById(id).orElse(null).getBus();
@@ -103,14 +103,14 @@ public class controller {
     public Conductor getDetails(@PathVariable  String id){
         return this.service.getConductor(id);
     }
-//    @PutMapping("/Driver/bus/conductor/{id}")
-//    public void setHealth(@PathVariable String id,@RequestBody Health health){
-//        this.service.setConductorHealth(id,health);
-//    }
-//    @PutMapping("/Driver/bus/route/{id}/{route}")
-//    public void addRoute(@PathVariable String id,@PathVariable String route){
-//        this.service.addRoute(id,route);
-//    }
+    @PostMapping("/Driver/bus/conductor/{id}")
+    public void setHealth(@PathVariable String id,@RequestBody Health health){
+        this.service.setConductorHealth(id,health);
+    }
+    @PutMapping("/Driver/bus/route/{id}/{route}")
+    public void addRoute(@PathVariable String id,@PathVariable String route){
+        this.service.addRoute(id,route);
+    }
     @GetMapping("/Driver/bus/route/{id}")
     public List<String> getRoute(@PathVariable String id){
         return this.service.getRoute(id);
