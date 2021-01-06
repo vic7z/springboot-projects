@@ -111,10 +111,10 @@ public class controller {
 //    public void addRoute(@PathVariable String id,@PathVariable String route){
 //        this.service.addRoute(id,route);
 //    }
-//    @GetMapping("/Driver/bus/route/{id}")
-//    public List<String> getRoute(@PathVariable String id){
-//        return this.service.getRoute(id);
-//    }
+    @GetMapping("/Driver/bus/route/{id}")
+    public List<String> getRoute(@PathVariable String id){
+        return this.service.getRoute(id);
+    }
 
 
 
