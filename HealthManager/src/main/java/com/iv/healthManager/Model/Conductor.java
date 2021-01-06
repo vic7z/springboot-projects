@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel(description = "Conductor Details")
 public class Conductor {
-    private String ConductorId;
+    private String conductorId;
     private String name;
     private Health health;
 

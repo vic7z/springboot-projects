@@ -85,6 +85,7 @@ public class service {
         Driver driver=driverRepo.findById(id).orElse(null);
         if (driver!=null){
             driver.getBus().addRoute(route);
+            this.driverRepo.save(driver);
         }
     }
     public void setBusDetails(String id, Bus bus){
@@ -92,6 +93,7 @@ public class service {
         if (driver!=null){
             driver.setBus(bus);
         }
+        this.driverRepo.save(driver);
     }
     public List<String> getRoute(String id){
         Driver driver=driverRepo.findById(id).orElse(new Driver());
@@ -105,6 +107,7 @@ public class service {
         Driver driver=driverRepo.findById(id).orElse(new Driver());
         if (driver!=null){
             driver.getBus().setConductor(conductor);
+            this.driverRepo.save(driver);
         }
     }
     public Conductor getConductor(String id ){
@@ -116,10 +119,14 @@ public class service {
         }
     }
     public void setConductorHealth(String id,Health health) {
-        Conductor conductor = getConductor(id);
-        if (conductor != null) {
-            conductor.setHealth(health);
+        Optional<Driver> dr=getById(id);
+        if (dr.isEmpty()){
+
+        }else {
+            dr.get().getBus().getConductor().setHealth(health);
+            this.driverRepo.save(dr.orElse(null));
         }
+       
     }
 
 }

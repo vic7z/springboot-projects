@@ -48,10 +48,11 @@ public class controller {
     public Optional<Driver> getById(@PathVariable  String id){
         return  this.service.getById(id);
     }
-    @GetMapping("/getHealth/{id}")
+
     @ApiOperation(
             value = "get health  details of the driver from the database"
     )
+    @GetMapping("/getHealth/{id}")
     public Health getHealth(@PathVariable String id){
         return this.service.getHealth(id);
     }
