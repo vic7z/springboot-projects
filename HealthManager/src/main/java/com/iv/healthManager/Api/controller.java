@@ -1,5 +1,7 @@
 package com.iv.healthManager.Api;
 
+import com.iv.healthManager.Model.Bus;
+import com.iv.healthManager.Model.Conductor;
 import com.iv.healthManager.Model.Driver;
 import com.iv.healthManager.Model.Health;
 import com.iv.healthManager.Notify.Sms;
@@ -53,5 +55,36 @@ public class controller {
     public void notify(@RequestBody Sms sms){
         this.service.sendSms(sms);
     }
+    @PutMapping("/Driver/bus/{id}")
+    public void setBusDetails(@PathVariable String id,@RequestBody Bus bus){
+        this.service.setBusDetails(id,bus);
+    }
+    @GetMapping("/Driver/bus/{id}")
+    public Bus getBusDetails(@PathVariable String id){
+        Bus bus = this.service.getById(id).orElse(null).getBus();
+        return bus;
+    }
+    @PutMapping("/Driver/bus/conductor/{id}")
+    public void setConductor(@PathVariable String id,@RequestBody Conductor conductor){
+        this.service.setConductor(id,conductor);
+    }
+    @GetMapping("/Driver/bus/conductor/{id}")
+    public Conductor getDetails(@PathVariable  String id){
+        return this.service.getConductor(id);
+    }
+    @PutMapping("/Driver/bus/conductor/{id}")
+    public void setHealth(@PathVariable String id,@RequestBody Health health){
+        this.service.setConductorHealth(id,health);
+    }
+    @PutMapping("/Driver/bus/route/{id}/{route}")
+    public void addRoute(@PathVariable String id,@PathVariable String route){
+        this.service.addRoute(id,route);
+    }
+    @GetMapping("/Driver/bus/route/{id}")
+    public List<String> getRoute(@PathVariable String id){
+        return this.service.getRoute(id);
+    }
+
+
 
 }

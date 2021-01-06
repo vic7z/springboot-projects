@@ -1,5 +1,7 @@
 package com.iv.healthManager.Service;
 
+import com.iv.healthManager.Model.Bus;
+import com.iv.healthManager.Model.Conductor;
 import com.iv.healthManager.Model.Driver;
 import com.iv.healthManager.Model.Health;
 import com.iv.healthManager.Notify.Contact;
@@ -79,4 +81,43 @@ public class service {
     public void delete(String id){
         this.driverRepo.deleteById(id);
     }
+    public void addRoute(String id,String route){
+        Driver driver=driverRepo.findById(id).orElse(null);
+        if (driver!=null){
+            driver.getBus().addRoute(route);
+        }
+    }
+    public void setBusDetails(String id, Bus bus){
+        Driver driver=driverRepo.findById(id).orElse(new Driver());
+        if (driver!=null){
+            driver.setBus(bus);
+        }
+    }
+    public List<String> getRoute(String id){
+        Driver driver=driverRepo.findById(id).orElse(new Driver());
+        if (driver!=null){
+          return driver.getBus().getRoutes();
+        }else {
+            return null;
+        }
+    }
+    public void setConductor(String id, Conductor conductor){
+        Driver driver=driverRepo.findById(id).orElse(new Driver());
+        if (driver!=null){
+            driver.getBus().setConductor(conductor);
+        }
+    }
+    public Conductor getConductor(String id ){
+        Optional<Driver> dr=getById(id);
+        if (dr.isEmpty()){
+            return null;
+        }else {
+            return dr.get().getBus().getConductor();
+        }
+    }
+    public void setConductorHealth(String id,Health health){
+        Conductor conductor=getConductor(id);
+        conductor.setHealth(health);
+    }
+
 }

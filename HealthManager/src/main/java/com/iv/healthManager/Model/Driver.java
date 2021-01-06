@@ -21,6 +21,7 @@ public class Driver {
     private Location location;
     //private Contact contact;
     private Health health;
+    private Bus bus;
 
     public Driver(String id, String name) {
         this.id = id;
