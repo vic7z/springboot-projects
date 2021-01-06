@@ -79,6 +79,14 @@ public class service {
         checkHealth(driver);
         this.driverRepo.save(driver);
     }
+    public void updateHealth(String id,Health health){
+        Driver driver=driverRepo.findById(id).orElse(null);
+        if (driver!=null){
+            driver.setHealth(health);
+            checkHealth(driver);
+            this.driverRepo.save(driver);
+        }
+    }
     public void delete(String id){
         this.driverRepo.deleteById(id);
     }

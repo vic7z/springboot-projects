@@ -58,10 +58,10 @@ public class controller {
     }
     @PutMapping("/Driver/{id}")
     @ApiOperation(
-            value = "update the driver details "
+            value = "update the driver health details "
     )
-    public void update(@PathVariable String id,@RequestBody Driver driver){
-        this.service.update(driver);
+    public void update(@PathVariable String id,@RequestBody Health health){
+        this.service.updateHealth(id,health);
     }
 
     @DeleteMapping("/{id}")
