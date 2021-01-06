@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class Contact {
     private final String mynum="+12512573853";
+    private final String emgnum="+919074960891";
     private List<String> contacts;
 
     public Contact() {

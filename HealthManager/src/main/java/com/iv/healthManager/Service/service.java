@@ -41,9 +41,8 @@ public class service {
     }
 
     public void add(Driver driver){
-        if(driver.getHealth().getTemperature()>=42 ){
-            this.notification.sendMultiple("temperature of "+driver.getName()+"is above "+driver.getHealth().getTemperature());
-        }
+       checkHealth(driver);
+
         this.driverRepo.save(driver);
     }
    public Optional< Driver> getById(String id){
@@ -61,6 +60,7 @@ public class service {
    private ResponseEntity<Driver> updateDriverDetails(String id, Health health){
         Driver driver=driverRepo.findById(id).orElse(new Driver());
         driver.setHealth(health);
+        checkHealth(driver);
         final Driver updatedDriver=driverRepo.save(driver);
         return ResponseEntity.ok(updatedDriver);
    }
@@ -76,6 +76,7 @@ public class service {
 
 
     public void update(Driver driver) {
+        checkHealth(driver);
         this.driverRepo.save(driver);
     }
     public void delete(String id){
@@ -127,6 +128,22 @@ public class service {
             this.driverRepo.save(dr.orElse(null));
         }
        
+    }
+    public void checkHealth(Driver driver){
+        if(driver.getHealth().getHeartRate()<60 ||
+                driver.getHealth().getHeartRate()>100 ||
+                driver.getHealth().getTemperature()>38 ||
+                driver.getHealth().getTemperature()<36 ||
+                driver.getHealth().getSpo2Level()<90){
+            this.notification.sendNotification(this.contact.getEmgnum(),"The recorded vitals of the driver" +
+                    " indicates unusal signs \n" +
+                    "Bus module :"+driver.getBus().getBusId()+
+                    "\nDriver name :"+driver.getName()+
+                    "\nLocation :"+driver.getLocation().toString()+
+                    "\nTemperature :"+driver.getHealth().getTemperature()+
+                    "\nSpo2 :"+driver.getHealth().getSpo2Level()+
+                    "\nHeartRate :"+driver.getHealth().getHeartRate());
+        }
     }
 
 }
