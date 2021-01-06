@@ -3,6 +3,7 @@ package com.iv.healthManager.Api;
 import com.iv.healthManager.Model.patients;
 import com.iv.healthManager.Model.Health;
 import com.iv.healthManager.Service.service;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,9 @@ public class controller {
     }
 
     @GetMapping("/all")
+    @ApiOperation(
+            value = "get all stud details from the database"
+    )
     public List<patients> getAll(){
         return this.service.getAll();
     }
