@@ -1,9 +1,11 @@
 package com.iv.healthManager;
 
+import com.iv.healthManager.Notify.twillioconfig;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -33,7 +35,7 @@ public class HealthmanagerApplication {
 
     private ApiInfo appDetails() {
         return new ApiInfo(
-                "Helth Management Api",
+                "Health Management Api",
                 "sample Api for health management",
                 "1.1",
                 "free of use",
